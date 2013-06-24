@@ -1,0 +1,37 @@
+<div id="nn">
+	{{ msg }}
+</div>
+<div id="storyfinal">
+</div>
+<input type="button" onclick="view();" value="viewstory">
+<input type="button" onclick="prework();" value="geturl">
+<script type="text/javascript">
+function view(e)
+{
+	xhttp=new XMLHttpRequest();
+	xhttp.onreadystatechange=function()
+  	{
+  		if (xhttp.readyState==4 && xhttp.status==200)
+    		{
+    			document.getElementById("storyfinal").innerHTML=xhttp.responseText;
+    		}
+  	}
+xhttp.open("GET","http://127.0.0.1:8000/story/viewstory?fname="+e,true);
+xhttp.send();
+}
+
+
+function prework()
+{
+	xhttp=new XMLHttpRequest();
+	xhttp.onreadystatechange=function()
+  	{
+  		if (xhttp.readyState==4 && xhttp.status==200)
+    		{
+    			document.getElementById("nn").innerHTML=xhttp.responseText;
+    		}
+  	}
+xhttp.open("GET","http://127.0.0.1:8000/story/prework",true);
+xhttp.send();
+}
+</script>

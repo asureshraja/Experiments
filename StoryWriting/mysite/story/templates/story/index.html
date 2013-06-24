@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<script type="text/javascript">
+function ajax(a,b)
+{
+	xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+  	{
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+			document.getElementById(a).innerHTML=xmlhttp.responseText;
+    		}
+  	}
+xmlhttp.open("GET","http://127.0.0.1:8000/story/"+b,true);
+xmlhttp.send();
+}
+
+
+function initiate()
+{
+	ask();
+	window.setInterval(function(){ajax("story","fullstory");},100);
+	window.setInterval(function(){display();},100);
+}
+
+
+function chkuser(a)
+{
+	xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+  	{
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    		{
+    			if(xmlhttp.responseText=="1")
+    				{writecookie(a);}
+    			else
+    			{name=prompt("enter valid name");chkuser(name);}
+    		}
+  	}
+xmlhttp.open("GET","http://127.0.0.1:8000/story/chkuser?nick="+a,true);
+xmlhttp.send();
+}
+
+
+function senddata()
+{
+	x="sentence="+document.getElementById("sentence").value+"&nick="+readcookie();
+	xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+  	{
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    	{
+    	alert(xmlhttp.responseText);
+    	}
+    }
+ 	
+xmlhttp.open("POST","http://127.0.0.1:8000/story/addstory",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send(x);
+}
+
+
+
+
+function adduser(e)
+{
+
+x="nick="+e;
+xmlhttp=new XMLHttpRequest();
+ /*
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+  		alert("SDFd");
+    }
+  } */
+xmlhttp.open("POST","http://127.0.0.1:8000/story/adduser");
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send(x);
+}
+
+
+
+
+
+
+function ask()
+{
+	if(readcookie()==null){
+		chkuser(prompt("enter name"));
+		
+	}
+	else{
+		document.getElementById('nn').innerHTML+=readcookie();
+	}
+}
+
+function writecookie(name)
+{
+
+   if(readcookie()==null){
+   	
+   			
+		document.cookie="nick="+name+";";
+        adduser(name);
+        document.getElementById('nn').innerHTML+=readcookie();
+    
+   }
+
+}
+
+function readcookie()
+{
+	value=null;
+    var allcookies = document.cookie;
+   cookiearray  = allcookies.split(';');
+   for(var i=0; i<cookiearray.length; i++){
+      if(cookiearray[i].split('=')[0]=="nick"){
+      value = cookiearray[i].split('=')[1];}
+   }
+
+   return value;
+}
+
+
+
+
+
+function display()
+{
+	xhttp=new XMLHttpRequest();
+	xhttp.onreadystatechange=function()
+  	{
+  		if (xhttp.readyState==4 && xhttp.status==200)
+    		{
+    			document.getElementById("currentactiveuser").innerHTML=xhttp.responseText;
+    		}
+  	}
+xhttp.open("GET","http://127.0.0.1:8000/story/time",true);
+xhttp.send();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function start()
+{
+	xhttp=new XMLHttpRequest();
+xhttp.open("GET","http://127.0.0.1:8000/story/starter",true);
+xhttp.send();
+
+}
+</script>
+
+<div id="nn">
+	{{ wel }}
+</div>
+
+<body onload="initiate();">
+<textarea id="story" rows="7" cols="50"  disabled>
+</textarea>
+<br>
+
+<textarea id="sentence" rows="3" cols="50">
+
+</textarea>
+<input type="button" value="send sentence" onclick="senddata();"/>
+<p>active user>:
+<div id="currentactiveuser">
+</div>
+</p>
+<input type="button" value="start" onclick="start();"/>
