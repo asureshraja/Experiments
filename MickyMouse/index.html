@@ -1,0 +1,92 @@
+<html>
+<div id="imag" >
+<br>
+<center><img src="mm.png" width="80" height="90" id="mm" onclick="alert('you win!!')";></img></center>
+<div id="down">
+</div>
+<div id="up">
+</div>
+<div id="sideleft">
+</div>
+<div id="sideright">
+</div>
+</div>
+<style>
+#imag
+{
+
+position: relative;
+height:130px;
+width:130px;
+top:130px;
+left:130px;
+}
+#sideleft
+{
+left:0px;
+top:0px;
+position: absolute; 
+background-color:white;
+height:130px;
+width:30px;
+}
+#sideright
+{
+position: absolute; 
+right:0px;
+bottom:0px;
+background-color:white;
+height:130px;
+width:30px;
+}
+#up
+{
+position: absolute; 
+background-color:white;
+top:0px;
+height:30px;
+width:130px;
+}
+#down
+{
+position: absolute; 
+bottom:0px;
+background-color:white;
+height:30px;
+width:130px;
+}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>  
+<script>
+$("#mm").bind('mouseover',function(e){
+if(parseInt(imag.style.top)+50 <0 || parseInt(imag.style.left)+50 <0 || parseInt(imag.style.left)+100 > window.screen.width || parseInt(imag.style.top)+100 > window.screen.height)
+alert('you lost it');
+$("#imag").css("top",e.pageY-150);
+});
+$("#down").bind('mousemove',function(e){
+if(parseInt(imag.style.top)+50 <0 || parseInt(imag.style.left)+50 <0 || parseInt(imag.style.left)+100 > window.screen.width || parseInt(imag.style.top)+100 > window.screen.height)
+alert('you lost it');
+$("#imag").css("top",e.pageY-150);
+});
+
+$("#up").bind('mousemove',function(e){
+if(parseInt(imag.style.top)+50 <0 || parseInt(imag.style.left)+50 <0 || parseInt(imag.style.left)+100 > window.screen.width || parseInt(imag.style.top)+100 > window.screen.height)
+alert('you lost it');
+$("#imag").css("top",e.pageY);
+});
+
+$("#sideleft").bind('mousemove',function(e){
+if(parseInt(imag.style.top)+50 <0 || parseInt(imag.style.left)+50 <0 || parseInt(imag.style.left)+100 > window.screen.width || parseInt(imag.style.top)+100 > window.screen.height)
+alert('you lost it');
+$("#imag").css("left",e.pageX);
+});
+
+$("#sideright").bind('mousemove',function(e){
+if(parseInt(imag.style.top)+50 <0 || parseInt(imag.style.left)+50 <0 || parseInt(imag.style.left)+100 > window.screen.width || parseInt(imag.style.top)+100 > window.screen.height)
+alert('you lost it');
+$("#imag").css("left",e.pageX-150);
+});
+
+</script>
+
+</html>
