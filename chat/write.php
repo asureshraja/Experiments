@@ -1,6 +1,5 @@
 <?php
-$asd=$_GET['ttt'];
-$file = fopen("chat.txt","w");
-echo fwrite($file,$_GET['ttt']);
+$file = fopen("chat.txt","a");
+echo fwrite($file,$_GET['msg']);
 fclose($file);
 ?>
