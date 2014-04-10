@@ -2,7 +2,7 @@ import urllib
 from HTMLParser import HTMLParser
 FILENAME="girl"
 start = "Indian baby names or hindu girl names with letter A"
-stop="Ad-Al"
+stop="At-Az"
 flag=0
 class newParser(HTMLParser):
 	def handle_data(self, data):
